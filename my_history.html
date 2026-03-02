@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>She Was Once Called Foreign — A Family History</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;700&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #080608;
+    --deep: #0f0a0d;
+    --surface: #160e12;
+    --card: #1e1218;
+    --red: #c0392b;
+    --red-dim: #8b2318;
+    --red-glow: rgba(192,57,43,0.15);
+    --gold: #c9a84c;
+    --gold-dim: #8a6e2f;
+    --cream: #e8dcc8;
+    --muted: #9a8578;
+    --faint: #4a3830;
+    --timeline-w: 260px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  /* ── GRAIN OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.025;
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ── LAYOUT ── */
+  .layout {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main {
+    flex: 1;
+    margin-right: var(--timeline-w);
+    max-width: calc(100vw - var(--timeline-w));
+  }
+
+  /* ── TIMELINE SIDEBAR ── */
+  .timeline {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: var(--timeline-w);
+    height: 100vh;
+    background: var(--deep);
+    border-left: 1px solid rgba(192,57,43,0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+    z-index: 100;
+    overflow-y: auto;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 28px;
+    top: 80px;
+    bottom: 80px;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--red-dim) 20%, var(--red-dim) 80%, transparent);
+  }
+
+  .timeline-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    color: var(--red);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    text-align: center;
+    opacity: 0.8;
+  }
+
+  .tl-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.6rem 0;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    text-decoration: none;
+  }
+
+  .tl-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1.5px solid var(--faint);
+    background: var(--deep);
+    flex-shrink: 0;
+    transition: all 0.3s;
+    position: relative;
+    z-index: 1;
+    margin-left: 3px;
+  }
+
+  .tl-item.active .tl-dot,
+  .tl-item:hover .tl-dot {
+    border-color: var(--red);
+    background: var(--red);
+    box-shadow: 0 0 10px var(--red);
+  }
+
+  .tl-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tl-num {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    color: var(--red-dim);
+    letter-spacing: 0.15em;
+  }
+
+  .tl-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    color: var(--muted);
+    transition: color 0.3s;
+    font-style: italic;
+  }
+
+  .tl-item.active .tl-name,
+  .tl-item:hover .tl-name {
+    color: var(--cream);
+  }
+
+  /* ── COVER SECTION ── */
+  #cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 4rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(192,57,43,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(201,168,76,0.06) 0%, transparent 50%);
+  }
+
+  #cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(to bottom, transparent, var(--black));
+  }
+
+  .cover-overline {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    color: var(--red);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.3s;
+  }
+
+  .cover-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--cream);
+    margin-bottom: 1.5rem;
+    max-width: 700px;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.6s;
+  }
+
+  .cover-title em {
+    color: var(--red);
+    font-style: italic;
+  }
+
+  .cover-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 480px;
+    margin-bottom: 3rem;
+    font-style: italic;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.9s;
+  }
+
+  .cover-meta {
+    display: flex;
+    gap: 3rem;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 1.2s;
+  }
+
+  .cover-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .cover-meta-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    color: var(--red-dim);
+    text-transform: uppercase;
+  }
+
+  .cover-meta-val {
+    font-size: 0.9rem;
+    color: var(--cream);
+  }
+
+  .cover-line {
+    position: absolute;
+    right: 5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 200px;
+    background: linear-gradient(to bottom, transparent, var(--red-dim), transparent);
+    opacity: 0;
+    animation: fadeIn 2s ease forwards 1.5s;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 3rem;
+    left: 5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    color: var(--faint);
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeIn 2s ease forwards 2s;
+  }
+
+  .scroll-hint::before {
+    content: '';
+    width: 30px;
+    height: 1px;
+    background: var(--faint);
+  }
+
+  /* ── SECTION WRAPPER ── */
+  .section {
+    padding: 6rem 5rem;
+    position: relative;
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .section-overline {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    color: var(--red);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-overline::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--red-dim);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 2.5rem;
+    line-height: 1.2;
+  }
+
+  .section-title em {
+    color: var(--red);
+    font-style: italic;
+  }
+
+  /* ── BACKGROUND SECTION ── */
+  #background {
+    background: linear-gradient(135deg, var(--surface) 0%, var(--black) 100%);
+  }
+
+  .prose {
+    max-width: 680px;
+    font-size: 1.05rem;
+    color: var(--cream);
+    opacity: 0.9;
+  }
+
+  .prose p {
+    margin-bottom: 1.5rem;
+  }
+
+  .prose p:first-child::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 4.5rem;
+    font-weight: 900;
+    color: var(--red);
+    float: left;
+    line-height: 0.75;
+    margin-right: 0.1em;
+    margin-top: 0.1em;
+  }
+
+  .pull-quote {
+    border-left: 3px solid var(--red);
+    padding: 1.5rem 2rem;
+    margin: 3rem 0;
+    background: var(--red-glow);
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--cream);
+    line-height: 1.5;
+  }
+
+  /* ── STORY SECTION ── */
+  #story {
+    background: var(--deep);
+  }
+
+  .story-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .speaker-badge {
+    background: var(--red);
+    color: var(--cream);
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    white-space: nowrap;
+    margin-top: 0.5rem;
+  }
+
+  .story-meta h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--gold);
+    margin-bottom: 0.25rem;
+  }
+
+  .story-meta p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* ── INTERVIEW SECTION ── */
+  #interview {
+    background: var(--surface);
+  }
+
+  .interview-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    max-width: 800px;
+  }
+
+  .interview-q {
+    background: var(--card);
+    border: 1px solid rgba(192,57,43,0.15);
+    padding: 1.5rem;
+    position: relative;
+    transition: border-color 0.3s;
+  }
+
+  .interview-q:hover {
+    border-color: rgba(192,57,43,0.5);
+  }
+
+  .q-num {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    color: var(--red-dim);
+    margin-bottom: 0.5rem;
+  }
+
+  .q-text {
+    font-size: 0.95rem;
+    color: var(--cream);
+    line-height: 1.5;
+  }
+
+  /* ── REFLECTION SECTION ── */
+  #reflection {
+    background: linear-gradient(180deg, var(--black) 0%, var(--surface) 50%, var(--black) 100%);
+  }
+
+  .reflection-deco {
+    position: absolute;
+    top: 4rem;
+    right: 5rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 12rem;
+    color: rgba(192,57,43,0.04);
+    font-style: italic;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* ── POETRY SECTION ── */
+  #poetry {
+    background: var(--deep);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #poetry::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, rgba(192,57,43,0.06) 0%, transparent 70%);
+  }
+
+  .poem-container {
+    max-width: 600px;
+    position: relative;
+  }
+
+  .poem-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-style: italic;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+
+  .stanza {
+    margin-bottom: 2rem;
+    padding-left: 1rem;
+    border-left: 1px solid rgba(192,57,43,0.2);
+  }
+
+  .stanza p {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: var(--cream);
+    opacity: 0.9;
+  }
+
+  .poem-refrain {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--red);
+    font-size: 1.1rem;
+    margin: 1.5rem 0;
+    padding: 1rem 1.5rem;
+    border-left: 2px solid var(--red);
+    background: var(--red-glow);
+  }
+
+  /* ── RESEARCH SECTION ── */
+  #research {
+    background: var(--black);
+  }
+
+  .research-block {
+    max-width: 720px;
+    margin-bottom: 4rem;
+  }
+
+  .research-block h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--gold-dim);
+  }
+
+  .works-cited {
+    max-width: 680px;
+    margin-top: 3rem;
+  }
+
+  .works-cited h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--red);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .citation {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 0.8rem;
+    padding-left: 2em;
+    text-indent: -2em;
+    line-height: 1.6;
+  }
+
+  .citation a {
+    color: var(--gold);
+    text-decoration: underline;
+    text-decoration-color: var(--gold-dim);
+    text-underline-offset: 3px;
+    transition: color 0.2s, text-decoration-color 0.2s;
+  }
+
+  .citation a:hover {
+    color: var(--cream);
+    text-decoration-color: var(--red);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 3rem 5rem;
+    border-top: 1px solid rgba(192,57,43,0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer .f-left {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--faint);
+  }
+
+  footer .f-right {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--faint);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── DECORATIVE DIVIDER ── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 3rem 0;
+    max-width: 300px;
+  }
+
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--faint);
+  }
+
+  .divider-diamond {
+    width: 6px;
+    height: 6px;
+    background: var(--red);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+  <!-- MAIN CONTENT -->
+  <div class="main">
+
+    <!-- ── COVER ── -->
+    <section id="cover" class="section-anchor">
+      <div class="cover-overline">African Studies — Family History Project</div>
+      <h1 class="cover-title">She Was Once Called <em>Foreign</em></h1>
+      <p class="cover-sub">A family history tracing displacement, survival, and belonging — from Côte d'Ivoire to Senase, Berekum.</p>
+      <div class="cover-meta">
+        <div class="cover-meta-item">
+          <span class="cover-meta-label">Origin</span>
+          <span class="cover-meta-val">Côte d'Ivoire — Tabgana</span>
+        </div>
+        <div class="cover-meta-item">
+          <span class="cover-meta-label">Destination</span>
+          <span class="cover-meta-val">Senase, Berekum — Ghana</span>
+        </div>
+        <div class="cover-meta-item">
+          <span class="cover-meta-label">Generation</span>
+          <span class="cover-meta-val">4th Generation</span>
+        </div>
+      </div>
+      <div class="cover-line"></div>
+      <div class="scroll-hint">Scroll to begin</div>
+    </section>
+
+    <!-- ── BACKGROUND ── -->
+    <section id="background" class="section section-anchor">
+      <div class="section-overline">01 — Background</div>
+      <h2 class="section-title reveal">A Story Born From <em>Conflict</em></h2>
+      <div class="prose reveal">
+        <p>Our family history traces back to a painful but remarkable beginning. Our great-great-grandmother was taken from Côte d'Ivoire as a toddler during a conflict. She was captured alongside her sister, but what became of that sister remains unknown — she may have died along the way.</p>
+        <p>As a young child, she was brought to Senase, a community in Berekum, far from her homeland and everything familiar to her. Because she was so young when she was taken, another woman who had recently given birth breastfed her and cared for her. For many years, she believed this woman was her biological mother, only discovering the truth later in life.</p>
+        <div class="pull-quote">"What began in violence became a story of survival."</div>
+        <p>When she reached adulthood, she was given in marriage in Senase. She gave birth to four children, including our great-grandmother. Tragically, two of her children died, leaving only our great-grandmother and a male sibling. Later, another conflict arose — this time between the people of Senase and Dormaa Ahenkro. During the unrest, her son was struck by a stone and died. With his death, our great-grandmother became the only surviving child.</p>
+        <p>Living as a woman in what had once been a foreign land, she endured severe mistreatment from those she lived among. Yet her story did not end in rejection. Through resilience and determination, she eventually built her own complete house, where she lived independently with her children. Her descendants prospered, and the very people once regarded as foreigners became established and respected members of the community of Senase.</p>
+      </div>
+    </section>
+
+    <!-- ── 1ST PERSON STORY ── -->
+    <section id="story" class="section section-anchor">
+      <div class="section-overline">02 — The Story</div>
+      <div class="story-header reveal">
+        <div class="speaker-badge">Speaker</div>
+        <div class="story-meta">
+          <h3>The Grandmother</h3>
+          <p>Tailing the story in the 1st person — as she would have told it</p>
+        </div>
+      </div>
+      <div class="prose reveal">
+        <p>I was not born in this land. I was born in Côte d'Ivoire, in a place called Tabgana. I do not remember it myself. I was only a toddler when I was taken. Everything I know about that place was told to me later.</p>
+        <p>They said there was a war between our tribe and another tribe. In that confusion, I was captured. I was taken together with my sister. What became of her, I was never told. I do not know whether she survived or died. That is something only God knows.</p>
+        <p>I was brought to Berekum, to a community called Senase. That is the only land I truly remember growing up in. Because I was still very small, a woman who had just given birth took me and breastfed me alongside her own child. She cared for me as if I were hers. For many years, I believed she was my real mother. No one told me otherwise.</p>
+        <div class="divider"><div class="divider-diamond"></div></div>
+        <p>I grew up there. I learned the ways of the people. I worked. I married. I built my life in the only place I knew. I gave birth to four children. Two of them died while they were still young. Losing a child is a pain that does not leave a mother's heart. But I still had my daughter and my son, and I held onto them.</p>
+        <p>Later, conflict arose between Senase and Dormaa Ahenkro. During that time, as people were moving in haste, my son was struck by a stone. He died from it. After that day, my daughter became my only surviving child.</p>
+        <div class="pull-quote">"One day, after returning from the farm during a heavy rainstorm, I found that my belongings had been thrown outside into the rain... I stood there and saw clearly what it meant: I was not wanted in that place."</div>
+        <p>But I did not leave. Someone showed me kindness and helped me find somewhere to stay. From that help, I gathered strength. I decided I would no longer depend on anyone for shelter. With determination and patience, I built my own complete house. It was not given to me. I built it.</p>
+        <p>I began life as a child taken from a land I cannot even remember. I grew up in a place that was not mine by birth. I lost children. I endured rejection. But I also built, endured, and remained. What began in displacement did not end in destruction. It became a family. It became a lineage.</p>
+      </div>
+    </section>
+
+    <!-- ── INTERVIEW ── -->
+    <section id="interview" class="section section-anchor">
+      <div class="section-overline">03 — Interview Queries</div>
+      <h2 class="section-title reveal">Questions That <em>Opened</em> the Story</h2>
+      <div class="interview-grid reveal">
+        <div class="interview-q">
+          <div class="q-num">01</div>
+          <p class="q-text">Where exactly are we from?</p>
+        </div>
+        <div class="interview-q">
+          <div class="q-num">02</div>
+          <p class="q-text">How did we come to Senase — our present destination?</p>
+        </div>
+        <div class="interview-q">
+          <div class="q-num">03</div>
+          <p class="q-text">What made our great-great grandmother come to Senase?</p>
+        </div>
+        <div class="interview-q">
+          <div class="q-num">04</div>
+          <p class="q-text">Did she ever know where exactly she was from?</p>
+        </div>
+        <div class="interview-q">
+          <div class="q-num">05</div>
+          <p class="q-text">Who fed her when she was a toddler?</p>
+        </div>
+        <div class="interview-q">
+          <div class="q-num">06</div>
+          <p class="q-text">How many children did she have when she married?</p>
+        </div>
+        <div class="interview-q">
+          <div class="q-num">07</div>
+          <p class="q-text">What challenges did she face with the inhabitants when she knew her identity as a foreigner?</p>
+        </div>
+        <div class="interview-q">
+          <div class="q-num">08</div>
+          <p class="q-text">How was she able to become established in a foreign place?</p>
+        </div>
+        <div class="interview-q" style="grid-column: span 2;">
+          <div class="q-num">09</div>
+          <p class="q-text">What is the one thing that is mostly spoken of her in our family?</p>
+        </div>
+      </div>
+      <p class="reveal" style="margin-top:1.5rem; font-size:0.85rem; color:var(--muted); font-style:italic;">Interview conducted by Kyeremeh Alfred &amp; Ibrahim Mahmoud — 25 Feb. 2026 with Dukuu Ama.</p>
+    </section>
+
+    <!-- ── REFLECTION ── -->
+    <section id="reflection" class="section section-anchor">
+      <div class="reflection-deco">∞</div>
+      <div class="section-overline">04 — Written Reflection</div>
+      <h2 class="section-title reveal">What the Story <em>Taught Me</em></h2>
+      <div class="prose reveal">
+        <p>The history of how my family came to settle in our current place is one that carries the belief in the miracles of life and the successes which follow after a period of tribulations. From my grandmother, I realized that our family does not come from where I think we are from, and to make matters worse, it seems we are not even Ghanaians.</p>
+        <p>Our story dates back years ago, to how my great-great-grandmother was taken from Côte d'Ivoire to Ghana due to war, raised by a woman she thought was her mother, but later discovered was not. From there, the people she stayed with made her understand that she was a stranger and did not belong — based on how she was treated. She married a man from the same place and gave birth to four children, yet three of them died while she was alive, leaving only a female child — my great-grandmother. Nevertheless, this child had many generations after her, of which I am part of the fourth generation.</p>
+        <div class="pull-quote">"From this story, I realized how some identities are not built based on personal consciousness but are given as a decision made by nature."</div>
+        <p>The transition of my great-great grandmother from a place we are not sure of to Senase was not something she could control, leaving her family, language, and culture to a place she had no knowledge about. Although she was very young when she was taken, I believe she was grieved the more when she knew that she was actually staying with people that had massacred her own family.</p>
+        <p>Anytime my grandmother tells me of the history of my family, she reminds me of our status as foreigners in a foreign land. This statement she always makes, clarifying that we as members of the family should therefore take very good care of ourselves, because there is no one to seek for help when we get into trouble. This is a situation that reminds me to always humble myself wherever I go, believing in God to establish me, even in a foreign land.</p>
+        <p>If there is something I can learn from the journey of my great-great-grandmother and the story she carries, that would be <em>perseverance</em>. She becomes a living legend, where stories about her are told to every child in our family, and her perseverance is cherished from generation to generation. Although she is dead and gone, I see her beauty, courage, and strength when her stories are told.</p>
+      </div>
+    </section>
+
+    <!-- ── POETRY ── -->
+    <section id="poetry" class="section section-anchor">
+      <div class="section-overline">05 — Creative Work</div>
+      <h2 class="section-title reveal">The <em>Poem</em></h2>
+      <div class="poem-container reveal">
+        <div class="poem-title">"She Was Once Called Foreign"</div>
+
+        <div class="stanza">
+          <p>She does not remember Côte d'Ivoire's shore,</p>
+          <p>No lullabies, no mother's door.</p>
+          <p>Only dust that rose beneath fleeing feet,</p>
+          <p>And small bare steps on foreign street.</p>
+        </div>
+
+        <div class="stanza">
+          <p>Too young to know what loss could mean,</p>
+          <p>Too young to grasp what she had seen,</p>
+          <p>She drank from arms not hers by birth,</p>
+          <p>Borrowed milk on borrowed earth.</p>
+        </div>
+
+        <div class="stanza">
+          <p>She grew where strangers spoke her name,</p>
+          <p>Where soil and sorrow felt the same.</p>
+          <p>She learned the language of that land,</p>
+          <p>With trembling heart and steady hand.</p>
+        </div>
+
+        <div class="poem-refrain">They called her foreign. Soft but clear.<br>A whispered word she learned to hear.<br>Though she had nowhere else to claim,<br>"Outsider" still became her name.</div>
+
+        <div class="stanza">
+          <p>She married under Berekum skies,</p>
+          <p>Built her hope where memory dies.</p>
+          <p>Four children cradled at her side —</p>
+          <p>Two returned where ancestors hide.</p>
+        </div>
+
+        <div class="stanza">
+          <p>One son ran where the people fled,</p>
+          <p>Where fear like wildfire quickly spread.</p>
+          <p>A single stone through chaos thrown</p>
+          <p>Turned breath to silence, flesh to stone.</p>
+        </div>
+
+        <div class="stanza">
+          <p>Her pots, her cloth, her chickens tied,</p>
+          <p>Cast to the storm and pushed aside.</p>
+          <p>The message clear in thunder's roar:</p>
+          <p>"You do not belong here anymore."</p>
+        </div>
+
+        <div class="stanza">
+          <p>The rain fell hard, but still she stood.</p>
+          <p>Roots grow deepest where they could.</p>
+          <p>For though the land denied her claim,</p>
+          <p>Her sweat and blood had marked the same.</p>
+        </div>
+
+        <div class="stanza">
+          <p>And then — one hand reached through the night,</p>
+          <p>Not armed with stone, but holding light.</p>
+          <p>A place to rest. A door made wide.</p>
+          <p>A quiet space where hope could hide.</p>
+        </div>
+
+        <div class="stanza">
+          <p>From broken ground she chose to build,</p>
+          <p>With patient hands the storms had stilled.</p>
+          <p>Brick by brick, her house arose,</p>
+          <p>Against the doubt the village chose.</p>
+        </div>
+
+        <div class="poem-refrain">They called her foreign — once again.<br>But walls remember more than men.<br>For every nail and wooden beam<br>Declared her right to stay and dream.</div>
+
+        <div class="stanza">
+          <p>Years unfolded. Children grew.</p>
+          <p>Roots pushed deep and branches knew</p>
+          <p>The land that once refused her tread</p>
+          <p>Now held her lineage widespread.</p>
+        </div>
+
+        <div class="stanza">
+          <p>She was once carried, small and torn,</p>
+          <p>Across a line by conflict drawn.</p>
+          <p>But now her name the earth repeats:</p>
+          <p>In family homes and village streets.</p>
+        </div>
+
+        <div class="poem-refrain">They called her foreign. Let them speak.<br>The strong are not the ones who seek<br>Permission from a shifting land —<br>They build their place with steady hand.</div>
+
+        <div class="stanza">
+          <p>What began in loss and flight</p>
+          <p>Now stands in brick and morning light.</p>
+          <p>The child once taken, far from shore,</p>
+          <p>Is foreign to this land no more.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── RESEARCH ── -->
+    <section id="research" class="section section-anchor">
+      <div class="section-overline">06 — Research &amp; Evidence</div>
+      <h2 class="section-title reveal">Historical <em>Context</em></h2>
+
+      <div class="research-block reveal">
+        <h3>I. Historical Conflicts in Côte d'Ivoire &amp; the Era of Slave Raiding</h3>
+        <div class="prose">
+          <p>The displacement of our great-great-grandmother did not happen by accident. The late nineteenth century was an extremely difficult time for communities living along the border between Côte d'Ivoire and Ghana. A powerful military leader named Samory Touré built a large empire across what is now Guinea, northern Côte d'Ivoire, Mali and Sierra Leone. From the 1880s onward, as French colonial forces pushed further inland, Samory moved his empire eastward and used destructive methods — burning villages and taking people by force — to slow the French advance. His campaigns brought immense suffering to communities across northern Côte d'Ivoire and forced thousands to flee their homes. Children were among the most vulnerable during this period.</p>
+          <p>Slave raiding was also a major part of this regional history. Records show that the slave trade caused serious conflict between different ethnic groups, and communities that were weaker were often forced to flee or be absorbed by stronger ones. The capture of young children during these conflicts was not unusual and has been documented in both oral and written histories across West Africa.</p>
+          <p>The Berekum area of Ghana — where our great-great-grandmother was brought — sits in the Brong-Ahafo region, close to the Côte d'Ivoire border. Her experience of being taken as a toddler and brought across what are now national borders reflects a pattern of forced displacement that was widespread in West Africa during this period.</p>
+        </div>
+      </div>
+
+      <div class="research-block reveal">
+        <h3>II. Displacement and Belonging in West Africa</h3>
+        <div class="prose">
+          <p>Researcher Jean Pierre Misago has identified a situation he calls "permanent temporality" — describing how long-term migrants in Africa are often treated as temporary visitors by the communities they live in, no matter how many years they have stayed. Our great-great-grandmother lived this reality. She had no homeland to return to, and yet the community around her still treated her as an outsider.</p>
+          <p>Research published in Frontiers found that although displacement causes serious problems for a person's sense of identity and belonging, it also produces strong resilience and the ability to build new communities and networks. The fact that our great-great-grandmother built her own house and raised her children independently is a strong example of this kind of resilience. She did not only build a physical structure. She built a claim to the place she had been denied.</p>
+          <p>Scholar Loren Landau has argued that human movement within Africa changes the meaning of concepts like home, community and belonging, and that over time people who migrate create new forms of membership in the communities they move to. Belonging was not given to our great-great-grandmother. She built it through her presence, her endurance, and her contribution to that community over many years.</p>
+        </div>
+      </div>
+
+      <div class="works-cited reveal">
+        <h3>Works Cited</h3>
+        <p class="citation">Dukuu, Ama. Personal Interview. Conducted by Kyeremeh Alfred &amp; Ibrahim Mahmoud, 25 Feb. 2026.</p>
+        <p class="citation"><a href="https://shorturl.at/lLAH0" target="_blank" rel="noopener">"Displacement, Belonging, and Social Integration: Understanding Refugee Journeys Across Origin, Transit, and Destination."</a> <em>Frontiers</em>.</p>
+        <p class="citation"><a href="https://shorturl.at/V9uk9" target="_blank" rel="noopener">"History of Côte d'Ivoire."</a> <em>Encyclopaedia Britannica</em>, 21 Feb. 2024.</p>
+        <p class="citation"><a href="https://shorturl.at/CoKEv" target="_blank" rel="noopener">"The Lives of African People Before the Trans-Atlantic Slave Trade."</a> <em>National Anchor</em>.</p>
+        <p class="citation">Landau, Loren B., and Oliver Bakewell, editors. <a href="https://shorturl.at/kZc4n" target="_blank" rel="noopener"><em>Forging African Communities: Mobility, Integration and Belonging</em></a>. Palgrave Macmillan, 2018, p. 4.</p>
+        <p class="citation">Misago, Jean Pierre. <a href="https://shorturl.at/xWtCj" target="_blank" rel="noopener">"Migration, Identity and Belonging in Contemporary Africa."</a> <em>Good Governance Africa</em>, 25 Jan. 2022.</p>
+        <p class="citation"><a href="https://tinyurl.com/jfs8w7my" target="_blank" rel="noopener">"Samory Touré's Resistance Against the French in West Africa."</a> <em>African History Online</em>.</p>
+        <p class="citation"><a href="https://tinyurl.com/4aww4sa7" target="_blank" rel="noopener">"The Slave Trade in Côte d'Ivoire."</a> <em>Discover Ivory Coast</em>.</p>
+      </div>
+    </section>
+
+    <footer>
+      <div class="f-left">African Studies — Family History Project · 2026</div>
+      <div class="f-right">What began in displacement did not end in destruction.</div>
+    </footer>
+
+  </div>
+
+  <!-- ── TIMELINE SIDEBAR ── -->
+  <nav class="timeline">
+    <div class="timeline-label">Journey</div>
+    <a class="tl-item active" href="#cover" onclick="setActive(this)">
+      <div class="tl-dot"></div>
+      <div class="tl-text">
+        <span class="tl-num">00</span>
+        <span class="tl-name">Cover</span>
+      </div>
+    </a>
+    <a class="tl-item" href="#background" onclick="setActive(this)">
+      <div class="tl-dot"></div>
+      <div class="tl-text">
+        <span class="tl-num">01</span>
+        <span class="tl-name">Background</span>
+      </div>
+    </a>
+    <a class="tl-item" href="#story" onclick="setActive(this)">
+      <div class="tl-dot"></div>
+      <div class="tl-text">
+        <span class="tl-num">02</span>
+        <span class="tl-name">1st Person Story</span>
+      </div>
+    </a>
+    <a class="tl-item" href="#interview" onclick="setActive(this)">
+      <div class="tl-dot"></div>
+      <div class="tl-text">
+        <span class="tl-num">03</span>
+        <span class="tl-name">Interview</span>
+      </div>
+    </a>
+    <a class="tl-item" href="#reflection" onclick="setActive(this)">
+      <div class="tl-dot"></div>
+      <div class="tl-text">
+        <span class="tl-num">04</span>
+        <span class="tl-name">Reflection</span>
+      </div>
+    </a>
+    <a class="tl-item" href="#poetry" onclick="setActive(this)">
+      <div class="tl-dot"></div>
+      <div class="tl-text">
+        <span class="tl-num">05</span>
+        <span class="tl-name">Poetry</span>
+      </div>
+    </a>
+    <a class="tl-item" href="#research" onclick="setActive(this)">
+      <div class="tl-dot"></div>
+      <div class="tl-text">
+        <span class="tl-num">06</span>
+        <span class="tl-name">Research</span>
+      </div>
+    </a>
+  </nav>
+</div>
+
+<script>
+  // ── ACTIVE TIMELINE on click
+  function setActive(el) {
+    document.querySelectorAll('.tl-item').forEach(i => i.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  // ── ACTIVE TIMELINE on scroll
+  const sections = document.querySelectorAll('.section-anchor');
+  const items = document.querySelectorAll('.tl-item');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        items.forEach(item => {
+          item.classList.remove('active');
+          if (item.getAttribute('href') === '#' + id) {
+            item.classList.add('active');
+          }
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  sections.forEach(s => observer.observe(s));
+
+  // ── REVEAL on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  revealEls.forEach(el => revealObserver.observe(el));
+</script>
+</body>
+</html>
